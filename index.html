@@ -1,32 +1,3 @@
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  $name = $_POST['name'];
-  $number = $_POST['number'];
-  $wing = $_POST['wing'];
-  $date = $_POST['date'];
-  $from = $_POST['from'];
-  $to = $_POST['to'];
-  $sound = isset($_POST['sound']) ? "Yes" : "No";
-
-  $toEmails = "your-email@example.com, (add-other-emails-here)";
-  $subject = "Newlands Sai Centre Booking Request";
-
-  $message = "Name: $name\n";
-  $message .= "Contact Number: $number\n";
-  $message .= "Wing: $wing\n";
-  $message .= "Date Required: $date\n";
-  $message .= "Time: $from - $to\n";
-  $message .= "Require Sound System: $sound\n";
-
-  $headers = "From: noreply@yourdomain.com";
-
-  mail($toEmails, $subject, $message, $headers);
-
-  $submitted = true;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .note {
+      display: none;
       line-height: 1.6;
     }
 
@@ -140,21 +112,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
   <div class="container">
-
-<?php if (!isset($submitted)): ?>
-
+    <div id="formSection">
       <h1>Aum Sai Ram</h1>
       <h2>Newlands Sai Centre Booking Form</h2>
 
-      <form method="POST">
+      <form id="bookingForm">
         <label>Name of Convenor</label>
-        <input type="text" name="name" required />
+        <input type="text" id="name" required />
 
         <label>Convenor Contact Number</label>
-        <input type="tel" name="number" required />
+        <input type="tel" id="number" required />
 
         <label>Wing</label>
-        <select name="wing" required>
+        <select id="wing" required>
           <option value="">Select Wing</option>
           <option>Education</option>
           <option>Devotional</option>
@@ -164,46 +134,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <label>Date Required</label>
-        <input type="date" name="date" required />
+        <input type="date" id="date" required />
 
         <label>Time</label>
         <div class="time-row">
-          <input type="time" name="from" required />
-          <input type="time" name="to" required />
+          <input type="time" id="from" required />
+          <input type="time" id="to" required />
         </div>
 
         <div class="checkbox-row">
-          <input type="checkbox" name="sound" />
-          <label>Require Sound System</label>
+          <input type="checkbox" id="sound" />
+          <label for="sound">Require Sound System</label>
         </div>
 
         <button type="submit">Submit Booking</button>
       </form>
+    </div>
 
-<?php else: ?>
-
+    <div id="noteSection" class="note">
       <div class="success">Booking submitted successfully.</div>
 
-      <div class="note">
-        <h3>Important Note</h3>
-        <p>Please ensure that the following are done before you hand back the centre key:</p>
+      <h3>Important Note</h3>
+      <p>Please ensure that the following are done before you hand back the centre key:</p>
 
-        <ul>
-          <li>Sound & speakers switched off</li>
-          <li>All lights (including stage side light, verandah) are off</li>
-          <li>All windows closed</li>
-          <li>Side rooms, downstairs rooms and toilets locked</li>
-          <li>All tissues and water bottles disposed of</li>
-          <li>Chairs set neatly</li>
-          <li>Alarm activated</li>
-          <li>Main gate is closed</li>
-        </ul>
+      <ul>
+        <li>Sound & speakers switched off</li>
+        <li>All lights (including stage side light, verandah) are off</li>
+        <li>All windows closed</li>
+        <li>Side rooms, downstairs rooms and toilets locked</li>
+        <li>All tissues and water bottles disposed of</li>
+        <li>Chairs set neatly</li>
+        <li>Alarm activated</li>
+        <li>Main gate is closed</li>
+      </ul>
 
-        <p><strong>If the convenor is not available to ensure the above, please nominate a substitute.</strong></p>
-      </div>
-
-<?php endif; ?>
-
+      <p><strong>If the convenor is not available to ensure the above, please nominate a substitute.</strong></p>
+    </div>
   </div>
+
+  <script>
+    const form = document.getElementById("bookingForm");
+    const formSection = document.getElementById("formSection");
+    const noteSection = document.getElementById("noteSection");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const number = document.getElementById("number").value;
+      const wing = document.getElementById("wing").value;
+      const date = document.getElementById("date").value;
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const sound = document.getElementById("sound").checked ? "Yes" : "No";
+
+      const subject = "Sai Centre Booking Request";
+
+      const body = `Name: ${name}\nContact Number: ${number}\nWing: ${wing}\nDate: ${date}\nTime: ${from} - ${to}\nRequire Sound: ${sound}`;
+
+      window.location.href = `mailto:your-email@example.com,(add-other-emails-here)?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      formSection.style.display = "none";
+      noteSection.style.display = "block";
+    });
+  </script>
 </body>
 </html>
