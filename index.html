@@ -1,178 +1,234 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Newlands Sai Centre Booking Form</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Newlands Sai Centre Booking</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #fff5f5, #ffeaea);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fff5f5, #ffeaea);
+  min-height: 100vh;
+  padding: 40px 15px;
+}
 
-    .container {
-      background: #ffffff;
-      padding: 35px 40px;
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 520px;
-      text-align: center;
-    }
+.container {
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  max-width: 520px;
+  margin: auto;
+}
 
-    .logo {
-      width: 90px;
-      margin-bottom: 12px;
-      padding: 8px;
-      border-radius: 50%;
-      border: 4px solid #d4af37; /* gold ring */
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
-      background: white;
-    }
+.logo {
+  width: 90px;
+  display: block;
+  margin: auto;
+  padding: 8px;
+  border-radius: 50%;
+  border: 4px solid #d4af37;
+  box-shadow: 0 0 10px rgba(212,175,55,0.6);
+}
 
-    h1 { margin: 5px 0 0; font-size: 24px; color: #8b0000; }
-    h2 { margin-top: 4px; color: #666; font-weight: 400; font-size: 14px; margin-bottom: 20px; }
+.motto {
+  text-align: center;
+  color: #d4af37;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
 
-    label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; text-align: left; }
+h1 {
+  text-align: center;
+  color: #8b0000;
+  margin-bottom: 5px;
+}
 
-    input, select {
-      width: 100%; padding: 11px 12px; margin-top: 6px;
-      border-radius: 10px; border: 1px solid #ddd; font-size: 14px; box-sizing: border-box;
-    }
+h2 {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
 
-    .time-row { display: flex; gap: 10px; }
+label {
+  font-weight: 600;
+  font-size: 13px;
+  display: block;
+  margin-top: 14px;
+}
 
-    .checkbox-row {
-      display: flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 14px; justify-content: left;
-    }
+input, select {
+  width: 100%;
+  padding: 11px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
 
-    button {
-      margin-top: 25px; width: 100%; padding: 13px; background: #8b0000; color: white;
-      border: none; border-radius: 12px; font-size: 16px; cursor: pointer; transition: 0.3s ease;
-    }
+.time-row {
+  display: flex;
+  gap: 10px;
+}
 
-    button:hover { background: #b30000; }
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
 
-    .note { display: none; text-align: left; line-height: 1.6; }
-    .success { text-align: center; color: green; font-weight: bold; margin-bottom: 15px; }
-  </style>
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 13px;
+  background: #8b0000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b30000;
+}
+
+.note {
+  display: none;
+}
+
+.success {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.calendar-section {
+  max-width: 900px;
+  margin: 50px auto 0;
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.calendar-section h2 {
+  text-align: center;
+  color: #8b0000;
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
 
-    <div id="formSection">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGICAIAAADgWCFtAAAQAElEQVR4Aez7B6Alx3UeCJ9T1emml9+8yQkY5JxzJJiTSJHSypIs..." alt="Sarva Dharma Symbol" class="logo" />
-    <div class="motto">Love All Serve All</div>
-      <h1>Aum Sai Ram</h1>
-      <h2>Newlands Sai Centre Booking Form</h2>
+<div class="container" id="formSection">
+  <img src="sai-logo.png" class="logo" alt="Sai Logo">
+  <div class="motto">Love All Serve All</div>
+  <h1>Aum Sai Ram</h1>
+  <h2>Newlands Sai Centre Booking Form</h2>
 
-      <form id="bookingForm">
-        <label>Name of Convenor</label>
-        <input type="text" id="name" required />
+  <form id="bookingForm">
+    <label>Convenor Name</label>
+    <input id="name" required>
 
-        <label>Convenor Contact Number</label>
-        <input type="tel" id="number" required />
+    <label>Contact Number</label>
+    <input id="number" pattern="[0-9]{10}" placeholder="0821234567" required>
 
-        <label>Wing</label>
-        <select id="wing" required>
-          <option value="">Select Wing</option>
-          <option>Education</option>
-          <option>Devotional</option>
-          <option>Seva</option>
-          <option>Ladies</option>
-          <option>Youth</option>
-        </select>
+    <label>Email</label>
+    <input type="email" id="email" required>
 
-        <label>Name of Event</label>
-        <input type="text" id="event" required />
+    <label>Wing</label>
+    <select id="wing" required>
+      <option value="">Select Wing</option>
+      <option>Education</option>
+      <option>Devotional</option>
+      <option>Seva</option>
+      <option>Ladies</option>
+      <option>Youth</option>
+    </select>
 
-        <label>Date Required</label>
-        <input type="date" id="date" required />
+    <label>Event Name</label>
+    <input id="event" required>
 
-        <label>Time</label>
-        <div class="time-row">
-          <input type="time" id="from" required />
-          <input type="time" id="to" required />
-        </div>
+    <label>Date</label>
+    <input type="date" id="date" required>
 
-        <div class="checkbox-row">
-          <input type="checkbox" id="sound" />
-          <label for="sound">Require Sound System</label>
-        </div>
-
-        <button type="submit">Submit Booking</button>
-      </form>
+    <label>Time</label>
+    <div class="time-row">
+      <input type="time" id="from" required>
+      <input type="time" id="to" required>
     </div>
 
-    <div id="noteSection" class="note">
-      <div class="success">Booking email prepared successfully.</div>
-
-      <h3 style="text-align:center;">Important Note</h3>
-      <p>Please ensure that the following are done before you hand back the centre key:</p>
-      <ul>
-        <li>Sound & speakers switched off</li>
-        <li>All lights (including stage side light, verandah) are off</li>
-        <li>All windows closed</li>
-        <li>Side rooms, downstairs rooms and toilets locked</li>
-        <li>All tissues and water bottles disposed of</li>
-        <li>Chairs set neatly</li>
-        <li>Alarm activated</li>
-        <li>Main gate is closed</li>
-      </ul>
-      <p><strong>If the convenor is not available to ensure the above, please nominate a substitute.</strong></p>
+    <div class="checkbox-row">
+      <input type="checkbox" id="sound">
+      <label for="sound">Sound System Required</label>
     </div>
 
-  </div>
+    <button type="submit">Submit Booking</button>
+  </form>
+</div>
+
+<div class="container note" id="noteSection">
+  <div class="success">Booking confirmed and added to the calendar.</div>
+  <ul>
+    <li>Switch off sound & lights</li>
+    <li>Close windows</li>
+    <li>Lock all rooms & toilets</li>
+    <li>Dispose of rubbish</li>
+    <li>Activate alarm & close gate</li>
+  </ul>
+</div>
+
+<section class="calendar-section">
+  <h2>Temple Public Booking Calendar</h2>
+  <iframe
+    src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=Africa%2FJohannesburg"
+    width="100%" height="600" frameborder="0">
+  </iframe>
+</section>
 
 <script>
-  const form = document.getElementById("bookingForm");
-  const formSection = document.getElementById("formSection");
-  const noteSection = document.getElementById("noteSection");
+const form = document.getElementById("bookingForm");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+form.addEventListener("submit", async e => {
+  e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const number = document.getElementById("number").value;
-    const wing = document.getElementById("wing").value;
-    const event = document.getElementById("event").value;
-    const date = document.getElementById("date").value;
-    const from = document.getElementById("from").value;
-    const to = document.getElementById("to").value;
-    const sound = document.getElementById("sound").checked ? "Yes" : "No";
+  const data = {
+    name: name.value,
+    number: number.value,
+    email: email.value,
+    wing: wing.value,
+    event: event.value,
+    date: date.value,
+    from: from.value,
+    to: to.value,
+    sound: sound.checked ? "Yes" : "No"
+  };
 
-    const subject = "Sai Centre Booking – " + event;
-
-    const body = `Convenor: ${name}%0D%0ANumber: ${number}%0D%0AWing: ${wing}%0D%0AEvent: ${event}%0D%0ADate: ${date}%0D%0ATime: ${from} - ${to}%0D%0ASound Required: ${sound}`;
-
-    window.location.href = `mailto:levaanpillay6@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-    formSection.style.display = "none";
-    noteSection.style.display = "block";
+  const res = await fetch("PASTE_WEB_APP_URL", {
+    method: "POST",
+    body: JSON.stringify(data)
   });
+
+  const result = await res.json();
+
+  if (result.status === "conflict") {
+    alert("⚠️ This time slot is already booked.");
+    return;
+  }
+
+  formSection.style.display = "none";
+  noteSection.style.display = "block";
+});
 </script>
 
-
-  <!-- Public Temple Booking Calendar -->
-  <section class="calendar-section">
-    <h2>Temple Public Booking Calendar</h2>
-    <iframe
-      src="https://calendar.google.com/calendar/embed?src=your_shared_calendar_id&ctz=Africa%2FJohannesburg"
-      style="border: 0"
-      width="100%"
-      height="600"
-      frameborder="0"
-      scrolling="no">
-    </iframe>
-    <p class="calendar-note">All confirmed temple bookings will appear here for devotees to view.</p>
-  </section>
 </body>
 </html>
