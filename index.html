@@ -1,126 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Newlands Sai Centre</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Newlands Sai Centre Booking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+* { box-sizing: border-box; }
 
-/* ===== GLOBAL STYLING ===== */
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #0f0f0f;
-    color: #ffffff;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f12;
+  color: #f5f5f5;
+  overflow-x: hidden;
 }
 
-h1, h2, h3 {
-    margin: 0;
+/* ✨ Animated Gold Glow Background */
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%);
+  top: -200px;
+  left: -200px;
+  animation: glowMove 10s infinite alternate ease-in-out;
+  z-index: 0;
+}
+@keyframes glowMove { from { transform: translate(0,0); } to { transform: translate(200px,200px); } }
+
+/* ✨ Subtle Gold Pattern Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(212,175,55,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
 }
 
-section {
-    padding: 60px 20px;
-    text-align: center;
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
 }
 
-/* ===== HEADER ===== */
-header {
-    background: #000000;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 2px solid #00bfff;
+/* ===== CARD ===== */
+.card {
+  background: #1b1b20;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  border: 1px solid rgba(212,175,55,0.3);
 }
 
-header h1 {
-    color: #00bfff;
-    font-size: 28px;
+.logo {
+  width: 95px;
+  border-radius: 50%;
+  padding: 8px;
+  border: 4px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212,175,55,0.6);
+  margin-bottom: 10px;
+  background: white;
 }
 
-/* ===== NAVIGATION ===== */
-nav {
-    margin-top: 15px;
+.motto {
+  color: #d4af37;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 13px;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
-    transition: 0.3s;
+h1 { margin: 8px 0 0; color: #d4af37; }
+h2 { font-weight: 400; font-size: 14px; color: #aaa; margin-bottom: 25px; }
+
+label {
+  display: block;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 15px;
 }
 
-nav a:hover {
-    color: #00bfff;
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  font-size: 14px;
+  background: #121216;
+  color: white;
+  transition: 0.3s;
 }
 
-/* ===== CALENDAR SECTION ===== */
+input:focus, select:focus {
+  border-color: #d4af37;
+  outline: none;
+  box-shadow: 0 0 10px rgba(212,175,55,0.4);
+}
+
+.time-row { display: flex; gap: 10px; }
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d4af37, #b8902f);
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+}
+
+.note {
+  display: none;
+  margin-top: 25px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.success {
+  color: #4caf50;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ===== CALENDAR ===== */
+.calendar-section {
+  margin-top: 70px;
+  text-align: center;
+}
+
 .calendar-section h2 {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: #00bfff;
+  color: #d4af37;
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
 .calendar-wrapper {
-    max-width: 1100px;
-    margin: auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 25px rgba(0, 191, 255, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  max-width: 1100px;
+  margin: auto;
 }
 
 .calendar-wrapper iframe {
-    width: 100%;
-    height: 650px;
-    border: 0;
-    filter: invert(0.95) hue-rotate(180deg); 
+  width: 100%;
+  height: 650px;
+  border: 0;
+  filter: invert(0.95) hue-rotate(180deg); /* Dark mode effect */
 }
 
-/* Small note */
+/* Calendar Note */
 .calendar-note {
-    margin-top: 20px;
-    font-size: 14px;
-    opacity: 0.8;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #aaa;
 }
 
-/* ===== FOOTER ===== */
-footer {
-    background: #000000;
-    padding: 30px 20px;
-    text-align: center;
-    border-top: 2px solid #00bfff;
-    margin-top: 60px;
-}
-
-footer p {
-    margin: 5px 0;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-
-    header h1 {
-        font-size: 22px;
-    }
-
-    nav a {
-        display: block;
-        margin: 10px 0;
-    }
-
-    section {
-        padding: 40px 15px;
-    }
-
-    .calendar-wrapper iframe {
-        height: 500px;
-    }
-
-    .calendar-section h2 {
-        font-size: 22px;
-    }
+  h2 { font-size: 22px; }
+  .calendar-wrapper iframe { height: 500px; }
+  .time-row { flex-direction: column; }
 }
 
 </style>
@@ -128,33 +197,119 @@ footer p {
 
 <body>
 
-<header>
-    <h1>Newlands Sai Centre</h1>
-    <nav>
-        <a href="#calendar">Events</a>
-        <a href="mailto:your@email.com">Contact Us</a>
-    </nav>
-</header>
+<div class="wrapper">
 
-<section id="calendar" class="calendar-section">
+  <!-- ===== BOOKING FORM ===== -->
+  <div class="card" id="formSection">
+
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGICAIAAADgWCFtAAAQAElEQVR4Aez7B6Alx3UeCJ9T1emml9+8yQkY5JxzJJiTSJHSypIs..." 
+    class="logo" alt="Sai Symbol">
+
+    <div class="motto">Love All • Serve All</div>
+    <h1>Aum Sai Ram</h1>
+    <h2>Newlands Sai Centre Booking Form</h2>
+
+    <form id="bookingForm">
+
+      <label>Convenor Name</label>
+      <input type="text" id="name" required>
+
+      <label>Contact Number</label>
+      <input type="tel" id="number" required>
+
+      <label>Wing</label>
+      <select id="wing" required>
+        <option value="">Select Wing</option>
+        <option>Education</option>
+        <option>Devotional</option>
+        <option>Seva</option>
+        <option>Ladies</option>
+        <option>Youth</option>
+      </select>
+
+      <label>Event Name</label>
+      <input type="text" id="event" required>
+
+      <label>Date Required</label>
+      <input type="date" id="date" required>
+
+      <label>Time</label>
+      <div class="time-row">
+        <input type="time" id="from" required>
+        <input type="time" id="to" required>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="sound">
+        <label for="sound">Require Sound System</label>
+      </div>
+
+      <button type="submit">Submit Booking</button>
+    </form>
+
+    <div id="noteSection" class="note">
+      <div class="success">Booking email prepared successfully.</div>
+      <p><strong>Please ensure before handing back the key:</strong></p>
+      <ul>
+        <li>Sound system switched off</li>
+        <li>All lights off</li>
+        <li>Windows closed</li>
+        <li>Rooms locked</li>
+        <li>Chairs packed neatly</li>
+        <li>Alarm activated</li>
+        <li>Main gate closed</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ===== CALENDAR ===== -->
+  <section class="calendar-section">
     <h2>Upcoming Events at Newlands Sai Centre</h2>
 
     <div class="calendar-wrapper">
-        <iframe 
+      <iframe 
         src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Africa%2FJohannesburg&mode=MONTH&showTitle=0&showTabs=0&showCalendars=0&showTz=0&showPrint=0&bgcolor=%23000000&src=ZDBiMjdhOGVlNjA2MGFjNGRhZjM1NjVkZDViZDlhODFmZGM1MWU0YjhkZjQzM2JkODFiYWQxMzcyZmFkOTk5MUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
-        </iframe>
+      </iframe>
     </div>
 
     <p class="calendar-note">
-        All confirmed centre programmes and events will appear here.
+      All confirmed temple programmes and events will appear here.
     </p>
-</section>
+  </section>
 
-<footer>
-    <p>Newlands Sai Centre</p>
-    <p>Africa / Johannesburg</p>
-    <p>Email: your@email.com</p>
-</footer>
+</div>
+
+<script>
+const form = document.getElementById("bookingForm");
+const noteSection = document.getElementById("noteSection");
+const dateInput = document.getElementById("date");
+
+/* Prevent past dates */
+const today = new Date().toISOString().split("T")[0];
+dateInput.setAttribute("min", today);
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const number = document.getElementById("number").value;
+  const wing = document.getElementById("wing").value;
+  const event = document.getElementById("event").value;
+  const date = document.getElementById("date").value;
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const sound = document.getElementById("sound").checked ? "Yes" : "No";
+
+  const subject = "Sai Centre Booking – " + event;
+  const body = `Convenor: ${name}\nContact Number: ${number}\nWing: ${wing}\nEvent: ${event}\nDate: ${date}\nTime: ${from} - ${to}\nSound System Required: ${sound}`;
+
+  window.location.href = `mailto:levaanpillay6@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  form.style.display = "none";
+  noteSection.style.display = "block";
+});
+</script>
 
 </body>
 </html>
