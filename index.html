@@ -213,10 +213,13 @@ form.addEventListener("submit", async e => {
     sound: sound.checked ? "Yes" : "No"
   };
 
-  const res = await fetch("PASTE_WEB_APP_URL", {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+  const res = await fetch(
+    "https://script.google.com/macros/s/AKfycbwJWqAlLh416ivy8YoNzra1VweFOGdKoZrZu4bbOlrSjLsfhMEACd1xciCshMsqKRqBAg/exec",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }
+  );
 
   const result = await res.json();
 
