@@ -152,7 +152,7 @@ button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175
 
   <!-- ===== BOOKING FORM ===== -->
   <div class="card" id="formSection">
-    <img src="        https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRzyNvAhTz-aXgGVqUmCiSqwQ9QQsoOn2NaA&s            " class="logo" alt="Sai Symbol">
+    <img src="my-logo.png" class="logo" alt="Sai Symbol">
     <div class="motto">Love All • Serve All</div>
     <h1>Aum Sai Ram</h1>
     <h2>Newlands Sai Centre Booking Form</h2>
@@ -191,7 +191,7 @@ button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175
         <label for="sound">Require Sound System</label>
       </div>
 
-      <button type="submit">Submit Booking</button>
+      <button type="submit">Next: Read Note</button>
     </form>
   </div>
 
@@ -209,12 +209,13 @@ button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175
       <li>7.7) Alarm activated</li>
       <li>7.8) Main gate is closed</li>
     </ul>
-    <p>* Please acknowledge ☑</p>
-    <label>Name</label>
-    <input type="text" id="ackName" placeholder="Convenor / Substitute Name">
+    <p>* Please acknowledge</p>
+    <label>Name (Convenor or Substitute)</label>
+    <input type="text" id="ackName" placeholder="Name">
     <label>Contact No:</label>
     <input type="text" id="ackContact" placeholder="Phone Number">
-    <p>8. If the convenor is not available to ensure the above, please nominate a substitute.</p>
+
+    <button id="finalSubmit">Submit Booking & Open Email</button>
   </div>
 
   <!-- ===== CALENDAR ===== -->
@@ -233,15 +234,22 @@ button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175
 <script>
 const form = document.getElementById("bookingForm");
 const noteSection = document.getElementById("noteSection");
+const finalSubmit = document.getElementById("finalSubmit");
 const dateInput = document.getElementById("date");
 
-/* Prevent past dates */
+// Prevent past dates
 const today = new Date().toISOString().split("T")[0];
 dateInput.setAttribute("min", today);
 
+// Step 1: Show note page after first submit
 form.addEventListener("submit", function(e){
   e.preventDefault();
+  form.style.display = "none";
+  noteSection.style.display = "block";
+});
 
+// Step 2: Open email only after final submit
+finalSubmit.addEventListener("click", function(){
   const name = document.getElementById("name").value;
   const number = document.getElementById("number").value;
   const wing = document.getElementById("wing").value;
@@ -251,13 +259,24 @@ form.addEventListener("submit", function(e){
   const to = document.getElementById("to").value;
   const sound = document.getElementById("sound").checked ? "Yes" : "No";
 
+  const ackName = document.getElementById("ackName").value || name;
+  const ackContact = document.getElementById("ackContact").value || number;
+
   const subject = "Sai Centre Booking – " + event;
-  const body = `Convenor: ${name}\nContact Number: ${number}\nWing: ${wing}\nEvent: ${event}\nDate: ${date}\nTime: ${from} - ${to}\nSound System Required: ${sound}`;
+  const body = `
+Convenor: ${name}
+Contact Number: ${number}
+Wing: ${wing}
+Event: ${event}
+Date: ${date}
+Time: ${from} - ${to}
+Sound System Required: ${sound}
 
-  window.location.href = `mailto:tony.singh929@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+Acknowledged By: ${ackName}
+Acknowledged Contact: ${ackContact}
+  `;
 
-  form.style.display = "none";
-  noteSection.style.display = "block";
+  window.location.href = `mailto:levaanpillay6@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 </script>
 
