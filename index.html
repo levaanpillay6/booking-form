@@ -195,43 +195,55 @@ button:hover {
   </iframe>
 </section>
 
-<script>
+  <script>
 const form = document.getElementById("bookingForm");
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
 
-  const data = {
-    name: name.value,
-    number: number.value,
-    email: email.value,
-    wing: wing.value,
-    event: event.value,
-    date: date.value,
-    from: from.value,
-    to: to.value,
-    sound: sound.checked ? "Yes" : "No"
-  };
+  try {
+    const data = {
+      name: name.value,
+      number: number.value,
+      email: email.value,
+      wing: wing.value,
+      event: event.value,
+      date: date.value,
+      from: from.value,
+      to: to.value,
+      sound: sound.checked ? "Yes" : "No"
+    };
 
-  const res = await fetch(
-    "https://script.google.com/macros/s/AKfycbwJWqAlLh416ivy8YoNzra1VweFOGdKoZrZu4bbOlrSjLsfhMEACd1xciCshMsqKRqBAg/exec",
-    {
-      method: "POST",
-      body: JSON.stringify(data)
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbwJWqAlLh416ivy8YoNzra1VweFOGdKoZrZu4bbOlrSjLsfhMEACd1xciCshMsqKRqBAg/exec",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }
+    );
+
+    const result = await res.json();
+
+    if (result.status === "conflict") {
+      alert("⚠️ This time slot is already booked.");
+      return;
     }
-  );
 
-  const result = await res.json();
+    if (result.status === "success") {
+      formSection.style.display = "none";
+      noteSection.style.display = "block";
+    } else {
+      alert("❌ Error: " + result.message);
+    }
 
-  if (result.status === "conflict") {
-    alert("⚠️ This time slot is already booked.");
-    return;
+  } catch (err) {
+    alert("❌ Submission failed. Please try again.");
+    console.error(err);
   }
-
-  formSection.style.display = "none";
-  noteSection.style.display = "block";
 });
 </script>
+
 
 </body>
 </html>
