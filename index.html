@@ -1,56 +1,158 @@
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("  7TFonS4xrwEod_pTz   "); // Replace with your EmailJS public key
-  })();
-
-  const form = document.getElementById("bookingForm");
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
-
-    const data = {
-      name: name.value,
-      number: number.value,
-      email: email.value,
-      wing: wing.value,
-      event: event.value,
-      date: date.value,
-      from: from.value,
-      to: to.value,
-      sound: sound.checked ? "Yes" : "No"
-    };
-
-    // 1️⃣ Send email via EmailJS
-    try {
-      await emailjs.send("service_uzyihin", "template_qwerty123", data); 
-      console.log("Email sent via EmailJS");
-    } catch(err) {
-      console.error("EmailJS error:", err);
-      alert("Email could not be sent.");
-      return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newlands Sai Centre Booking Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5f5, #ffeaea);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
+    .container {
+      background: #ffffff;
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
+    .logo {
+      width: 90px;
+      margin-bottom: 12px;
+      padding: 8px;
+      border-radius: 50%;
+      border: 4px solid #d4af37;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+      background: white;
+    }
+    h1 { margin: 5px 0 0; font-size: 24px; color: #8b0000; }
+    h2 { margin-top: 4px; color: #666; font-weight: 400; font-size: 14px; margin-bottom: 20px; }
+    label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; text-align: left; }
+    input, select {
+      width: 100%; padding: 11px 12px; margin-top: 6px;
+      border-radius: 10px; border: 1px solid #ddd; font-size: 14px; box-sizing: border-box;
+    }
+    .time-row { display: flex; gap: 10px; }
+    .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 14px; justify-content: left; }
+    button {
+      margin-top: 25px; width: 100%; padding: 13px; background: #8b0000; color: white;
+      border: none; border-radius: 12px; font-size: 16px; cursor: pointer; transition: 0.3s ease;
+    }
+    button:hover { background: #b30000; }
+    .note { display: none; text-align: left; line-height: 1.6; }
+    .success { text-align: center; color: green; font-weight: bold; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
 
-    // 2️⃣ Send data to Apps Script for Sheet + Calendar
-    try {
-      const res = await fetch(
-        "https://script.google.com/macros/s/AKfycbwJWqAlLh416ivy8YoNzra1VweFOGdKoZrZu4bbOlrSjLsfhMEACd1xciCshMsqKRqBAg/exec",
-        {
+    <div id="formSection">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGICAIAAADgWCFtAAAQAElEQVR4Aez7B6Alx3UeCJ9T1emml9+8yQkY5JxzJJiTSJHSypIs..." alt="Sarva Dharma Symbol" class="logo" />
+      <div class="motto">Love All Serve All</div>
+      <h1>Aum Sai Ram</h1>
+      <h2>Newlands Sai Centre Booking Form</h2>
+
+      <form id="bookingForm">
+        <label>Name of Convenor</label>
+        <input type="text" id="name" required />
+
+        <label>Convenor Contact Number</label>
+        <input type="tel" id="number" required />
+
+        <label>Wing</label>
+        <select id="wing" required>
+          <option value="">Select Wing</option>
+          <option>Education</option>
+          <option>Devotional</option>
+          <option>Seva</option>
+          <option>Ladies</option>
+          <option>Youth</option>
+        </select>
+
+        <label>Name of Event</label>
+        <input type="text" id="event" required />
+
+        <label>Date Required</label>
+        <input type="date" id="date" required />
+
+        <label>Time</label>
+        <div class="time-row">
+          <input type="time" id="from" required />
+          <input type="time" id="to" required />
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="sound" />
+          <label for="sound">Require Sound System</label>
+        </div>
+
+        <button type="submit">Submit Booking</button>
+      </form>
+    </div>
+
+    <div id="noteSection" class="note">
+      <div class="success">Booking submitted successfully!</div>
+      <h3 style="text-align:center;">Important Note</h3>
+      <p>Please ensure the following before handing back the centre key:</p>
+      <ul>
+        <li>Sound & speakers switched off</li>
+        <li>All lights off</li>
+        <li>All windows closed</li>
+        <li>Side rooms, downstairs rooms and toilets locked</li>
+        <li>All tissues and water bottles disposed of</li>
+        <li>Chairs set neatly</li>
+        <li>Alarm activated</li>
+        <li>Main gate is closed</li>
+      </ul>
+      <p><strong>If the convenor is unavailable, please nominate a substitute.</strong></p>
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.getElementById("bookingForm");
+    const formSection = document.getElementById("formSection");
+    const noteSection = document.getElementById("noteSection");
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        number: document.getElementById("number").value,
+        wing: document.getElementById("wing").value,
+        event: document.getElementById("event").value,
+        date: document.getElementById("date").value,
+        from: document.getElementById("from").value,
+        to: document.getElementById("to").value,
+        sound: document.getElementById("sound").checked ? "Yes" : "No"
+      };
+
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwJWqAlLh416ivy8YoNzra1VweFOGdKoZrZu4bbOlrSjLsfhMEACd1xciCshMsqKRqBAg/exec", { // Replace with your Apps Script Web App URL
           method: "POST",
           body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        if(result.status === "success"){
+          formSection.style.display = "none";
+          noteSection.style.display = "block";
+        } else {
+          alert("Submission failed: " + result.message);
         }
-      );
-
-      const result = await res.json();
-      if(result.status === "conflict"){
-        alert("⚠️ This time slot is already booked.");
-        return;
+      } catch(err){
+        alert("Error submitting booking: " + err.message);
       }
-
-      formSection.style.display = "none";
-      noteSection.style.display = "block";
-    } catch(err){
-      console.error("Apps Script error:", err);
-      alert("Submission to Sheet/Calendar failed.");
-    }
-  });
-</script>
+    });
+  </script>
+</body>
+</html>
